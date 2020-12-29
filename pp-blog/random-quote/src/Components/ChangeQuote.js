@@ -10,7 +10,8 @@ export class ChangeQuote extends Component {
     }
 
     buttonClicked = () => {
-        
+        let changeState = this.props.changeState;
+        changeState();
     }
 
     render(){

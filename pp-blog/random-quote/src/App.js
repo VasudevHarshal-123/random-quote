@@ -8,18 +8,21 @@ export class App extends Component {
   constructor(){
     super();
     this.state = {
-        changeQuote:0
+        flag:0
     }
 }
   changeState = () => {
-
+    this.setState({
+      flag : !this.state.flag
+    })
   }
+
   render() {
     return (
       <div className = "app">
         <Heading />
-        <Quote />
-        <ChangeQuote changeQuote = {this.changeState} />
+        <Quote/>
+        <ChangeQuote changeState = {this.changeState} />
       </div>
     )
   }
