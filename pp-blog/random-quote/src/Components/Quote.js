@@ -1,29 +1,63 @@
 import React, {Component} from 'react';
 import { quote_list } from './Constants/QuoteConstant';
+import axios from 'axios';
 import './Styles/Quote.css';
 
 export class Quote extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-
+            content : "",
+            author : ""
         }
     }
 
-    getRandomQuoteText = (randomIndex) => {
+    getRandomQuoteText = () => {
         return (
             <div>
-                {quote_list[randomIndex].Quote}
+                {this.state.content}
             </div>
         )
     }
 
-    getRandomQuoteWriter = (randomIndex) => {
+
+
+    getRandomQuoteWriter = () => {
         return (
             <div>
-                {quote_list[randomIndex].By}
+                {this.state.author}
             </div>
         )
+    }
+
+    componentDidUpdate(prevProps,prevState){
+        if(this.props.flag !== prevProps.flag){
+            axios.get('http://api.quotable.io/random')
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    content : response.data.content,
+                    author : response.data.author
+                })
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        }
+    }
+
+    componentDidMount(){
+        axios.get('http://api.quotable.io/random')
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    content : response.data.content,
+                    author : response.data.author
+                })
+            })
+            .catch(e => {
+                console.log(e);
+            })
     }
 
     render(){
@@ -31,8 +65,8 @@ export class Quote extends Component {
         let randomIndex = randomValue % 5;
         return(
             <div className="randomQuoteContainer">
-                {this.getRandomQuoteText(randomIndex)}
-                {this.getRandomQuoteWriter(randomIndex)}
+                {this.getRandomQuoteText()}
+                {this.getRandomQuoteWriter()}
             </div>
         )
     }

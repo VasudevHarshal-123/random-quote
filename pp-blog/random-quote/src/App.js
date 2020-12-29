@@ -21,7 +21,7 @@ export class App extends Component {
     return (
       <div className = "app">
         <Heading />
-        <Quote/>
+        <Quote flag = {this.state.flag}/>
         <ChangeQuote changeState = {this.changeState} />
       </div>
     )
