@@ -31,8 +31,8 @@ export class Quote extends Component {
     }
 
     componentDidUpdate(prevProps,prevState){
-        if(this.props.flag !== prevProps.flag){
-            axios.get('http://api.quotable.io/random')
+        if(this.props.key !== prevProps.key){
+            axios.get(this.props.tag)
             .then(response => {
                 console.log(response)
                 this.setState({
@@ -47,7 +47,7 @@ export class Quote extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://api.quotable.io/random')
+        axios.get(this.props.tag)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -61,8 +61,8 @@ export class Quote extends Component {
     }
 
     render(){
-        let randomValue = Math.floor(Math.random()*10)
-        let randomIndex = randomValue % 5;
+        // let randomValue = Math.floor(Math.random()*10)
+        // let randomIndex = randomValue % 5;
         return(
             <div className="randomQuoteContainer">
                 {this.getRandomQuoteText()}
